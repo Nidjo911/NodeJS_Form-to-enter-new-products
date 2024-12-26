@@ -1,0 +1,84 @@
+<!-- views/index.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    Results table
+  </title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .data-section {
+      margin: 20px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f4f4f4;
+    }
+
+    h2 {
+      color: #333;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>
+    <%= title %>
+  </h1>
+  <div id="chart-container"></div>
+  <div class="data-section">
+    <h2>Test Data</h2>
+    <table>
+      <tr>
+        <th>Position</th>
+        <th>Force (N)</th>
+        <th>Strain</th>
+        <th>Stress (MPa)</th>
+      </tr>
+      <% for(let i=0; i < labels.length; i++) { %>
+        <tr>
+          <td>
+            <%= labels[i] %>
+          </td>
+          <td>
+            <%= forces[i] %>
+          </td>
+          <td>
+            <%= strains[i] %>
+          </td>
+          <td>
+            <%= stresses[i] %>
+          </td>
+        </tr>
+        <% } %>
+    </table>
+  </div>
+
+
+</body>
+
+</html>
