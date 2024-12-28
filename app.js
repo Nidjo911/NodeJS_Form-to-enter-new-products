@@ -1,48 +1,37 @@
-// app.js
-/* import express from 'express';
+const express = require('express')
+const app = express()
 
-
-use require*/
-
-const { calcNumberOfSpaces } = require('./calculator.js');
-
+let productsArray = [{name: "John", poles: 1}];
 // Configuration constants
 const PORT = 3000;
 const VIEW_ENGINE = 'ejs';
 const VIEWS_DIR = './views';
 
-// Data generation function
-const testDataForAppDevelopment = () => ({
-});
-
-
-// Create Express application
-const app = express();
+// Middleware setup
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 // View engine setup
 app.set('views', VIEWS_DIR);
 app.set('view engine', VIEW_ENGINE);
 
-// Routes
 app.get('/', (req, res) => {
-
+  // Use the imported functions to get our data
+  res.render('index', { productsArray: productsArray });
 });
 
-app.post('/save', (req, res) => {
-  const poles = Number(req.body.poles);
-  const percentage = Number(req.body.percentage);
-  const contacts = Number(req.body.contacts);
-  
-  saveToMemory(poles, percentage, contacts);
-  const spaces = calcNumberOfSpaces(poles, percentage);
-  
-  res.send(`Saved! Calculated spaces: ${spaces}`);
+app.post('/save-product', (req, res) => {
+  const { productName, poles } = req.body;
+  productsArray.push({ name: productName, poles: Number(poles) });
+  console.log(req.body);
+  console.log(productName);
+  console.log(poles);
+  res.redirect('/');
+
+  console.log(`Products array: ${productsArray[0].name}`)
 });
 
 // Start server
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
-
-
-export default app;
